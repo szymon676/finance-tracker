@@ -12,7 +12,7 @@ func HandleGetSpendings(c *gin.Context) {
 
 	database.DB.Find(&spendings)
 	c.JSON(200, gin.H{
-		"spendings: ": spendings,
+		"spendings:": spendings,
 	})
 }
 
@@ -58,6 +58,7 @@ func HandleDeleteSpending(c *gin.Context) {
 	id := c.Param("id")
 
 	database.DB.First(&spending, id)
+
 	if spending.Title == "" {
 		c.String(404, "spending not found delete failed")
 	}

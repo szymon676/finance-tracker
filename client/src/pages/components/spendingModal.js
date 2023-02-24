@@ -12,7 +12,7 @@ export default function Modal() {
     const price = document.querySelector("#price").value;
     const description = document.querySelector("#description").value;
     const data = { title: title, price: price, description: description };
-
+    
     fetch("http://localhost:4000/spendings", {
       method: "POST",
       headers: {
@@ -22,10 +22,10 @@ export default function Modal() {
     })
       .then((response) => response.json())
       .then((data) => {
+        location.reload()
         toggleModal(); // close the modal after successful post
       })
       .catch((error) => {
-        alert("error!");
         console.error("Error:", error);
       });
   }

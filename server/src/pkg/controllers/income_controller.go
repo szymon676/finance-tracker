@@ -12,7 +12,7 @@ func HandleGetIncomes(c *gin.Context) {
 
 	database.DB.Find(&incomes)
 	c.JSON(200, gin.H{
-		"incomes: ": incomes,
+		"incomes:": incomes,
 	})
 }
 

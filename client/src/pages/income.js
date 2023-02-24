@@ -1,19 +1,31 @@
 import { useEffect, useState } from "react";
 import Modal from "./components/incomeModal";
+import axios from "axios";
 
-const app = () => {
-    const [incomes, setIncomes] = useState([]);
+const App = () => {
+  
+  const [incomes, setIncomes] = useState([]);
 
     useEffect(() => {
-      fetch("http://localhost:4000/incomes")
-        .then((response) => response.json())
-        .then((data) => {
-          setIncomes(data.incomes)
-          console.log(data)
+      axios
+        .get("http://localhost:4000/incomes")
+        .then((response) => {
+          console.log(response.data); 
+          setIncomes(response.data["incomes:"]); 
         })
         .catch((error) => console.log(error));
     }, []);
 
+    const deleteIncome = (id) => {
+      axios
+        .delete(`http://localhost:4000/incomes/${id}`)
+        .then(() => {
+          console.log("succesfully deleted income :D"); 
+          setIncomes(prevIncomes => prevIncomes.filter(income => income.ID !== id));
+        })
+        .catch((error) => console.log(error));
+    } 
+    
     return (
       <main>
         <div className="header">
@@ -35,18 +47,17 @@ const app = () => {
               <h2 id="history">
                 <b>History:</b>
               </h2>
-              {incomes && incomes.length > 0 ? (
-                <ul>
-                  {incomes.map((income) => (
-                    <li key={income.id}>
-                      {income.title}: {income.price}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p>Loading...</p>
-              )}
+            <div>
+            {incomes && incomes.map((income) => (
+              <div key={income.ID} class="div">
+                <p>Title: {income.title}</p>
+                <p>Price: {income.price}</p>
+                <p>Description: {income.description}</p>
+                <button class="button1" onClick={() => deleteIncome(income.ID)}>Delete Income</button>
+              </div>
+            ))}
             </div>
+          </div>
           </article>
 
           <Modal />
@@ -55,4 +66,4 @@ const app = () => {
     );
 };
 
-export default app;
+export default App;

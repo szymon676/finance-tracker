@@ -22,13 +22,13 @@ export default function Modal() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Success:", data);
         toggleModal(); // close the modal after successful post
+        location.reload()
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-}
+    }
 
   return (
     <>

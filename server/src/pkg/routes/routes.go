@@ -22,7 +22,7 @@ func SetupRoutes() {
 	// * Endpoints setup for spendings
 	r.GET("/spendings", controllers.HandleGetSpendings)
 	r.POST("/spendings", controllers.HandleNewSpending)
-	r.GET("/spendings/:id", controllers.HandleDeleteSpending)
+	r.DELETE("/spendings/:id", controllers.HandleDeleteSpending)
 
 	// ! running server on port 4000
 	r.Run(":4000")

@@ -1,5 +1,31 @@
 import Modal from "./components/spendingModal";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 const app = () => {
+  const [spendings, setSpendings] = useState([]);
+
+    useEffect(() => {
+      axios
+        .get("http://localhost:4000/spendings")
+        .then((response) => {
+          console.log(response.data); // check the data being returned by the API
+          setSpendings(response.data["spendings:"]); // update the state with the incomes array
+        })
+        .catch((error) => console.log(error));
+    }, []);
+  
+    
+    const deleteSpending = (id) => {
+      axios
+        .delete(`http://localhost:4000/spendings/${id}`)
+        .then(() => {
+          console.log("succesfully deleted spending :D"); 
+          setSpendings(prevSpendings => prevSpendings.filter(spending => spending.ID !== id));
+        })
+        .catch((error) => console.log(error));
+    }
+
     return (
       <main>
       <div class="header">
@@ -17,7 +43,16 @@ const app = () => {
           <h2>Spendings:</h2>
           <div class="card">
             <h2><b>History:</b></h2>
-            <p id="history"></p>
+            <div>
+            {spendings && spendings.map((spending) => (
+              <div key={spending.ID} class="div">
+                <p>Title: {spending.title}</p>
+                <p>Price: -{spending.price}</p>
+                <p>Description: {spending.description}</p>
+                <button class="button1" onClick={() => deleteSpending(spending.ID)}>Delete spending</button>
+              </div>
+            ))}
+            </div>
           </div>
         </article>
         <Modal/>
