@@ -1,16 +1,22 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 type Spending struct {
 	*gorm.Model
-	Title       string `json:"title"`
-	Price       string `json:"price"`
-	Description string `json:"description"`
+	Ammount  float64   `json:"ammount"`
+	Category string    `json:"category"`
+	Currency string    `json:"currency"`
+	Date     time.Time `json:"date"`
 }
 
 type BindSpending struct {
-	Title       string `json:"title"`
-	Price       string `json:"price"`
-	Description string `json:"description"`
+	Ammount  float64 `json:"ammount"`
+	Category string  `json:"category"`
+	Currency string  `json:"currency"`
+	Date     string  `json:"date"`
 }

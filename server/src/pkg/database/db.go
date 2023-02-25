@@ -17,5 +17,5 @@ func SetupDB() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	DB.AutoMigrate(&models.Income{}, &models.Spending{})
+	DB.AutoMigrate(&models.Earning{}, &models.Spending{}, models.Goal{})
 }

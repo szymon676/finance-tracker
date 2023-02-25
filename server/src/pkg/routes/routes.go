@@ -15,14 +15,22 @@ func SetupRoutes() {
 	db()
 
 	// ! Endpoints setup for income
-	r.GET("/incomes", controllers.HandleGetIncomes)
-	r.POST("/incomes", controllers.HandleNewIncome)
-	r.DELETE("/incomes/:id", controllers.HandleDeleteIncome)
+	r.GET("/earnings", controllers.HandleGetEarnings)
+	r.POST("/earnings", controllers.HandleNewEarning)
+	r.DELETE("/earnings/:id", controllers.HandleDeleteEarning)
 
 	// * Endpoints setup for spendings
 	r.GET("/spendings", controllers.HandleGetSpendings)
 	r.POST("/spendings", controllers.HandleNewSpending)
 	r.DELETE("/spendings/:id", controllers.HandleDeleteSpending)
+
+	// ? category endpoints setup
+	r.GET("/spendings/:category", controllers.HandleGetSpendingsByCategory)
+	r.GET("/earnings/:category", controllers.HandleGetEarningsByCategory)
+
+	// ? golas endpoints setup
+	r.POST("/goals", controllers.HandleNewGoal)
+	r.GET("/goals", controllers.HandleGetGoals)
 
 	// ! running server on port 4000
 	r.Run(":4000")
